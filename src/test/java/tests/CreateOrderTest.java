@@ -2,9 +2,9 @@ package tests;
 
 import clients.OrderClient;
 import clients.UserClient;
+import generators.UserGenerator;
 import models.OrderModel;
 import models.UserModel;
-import generators.UserGenerator;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
@@ -30,7 +30,6 @@ public class CreateOrderTest {
         orderClient = new OrderClient();
         userClient = new UserClient();
 
-        // Получаем актуальные ID ингредиентов
         var ingredientResponse = orderClient.getIngredients();
         ingredientResponse.then().statusCode(SC_OK);
         validIngredientIds = ingredientResponse.then().extract().path("data._id");
@@ -53,6 +52,7 @@ public class CreateOrderTest {
 
     @Test
     @DisplayName("Создание заказа с авторизацией и ингредиентами")
+    @Description("Позитивный сценарий: авторизованный пользователь создаёт заказ с валидными ингредиентами")
     public void createOrderWithAuthAndIngredientsTest() {
         OrderModel order = new OrderModel(Arrays.asList(
                 validIngredientIds.get(0),
@@ -68,6 +68,7 @@ public class CreateOrderTest {
 
     @Test
     @DisplayName("Создание заказа без авторизации, но с ингредиентами")
+    @Description("Проверка, что неавторизованный пользователь может создать заказ (фактическое поведение API)")
     public void createOrderWithoutAuthButWithIngredientsTest() {
         OrderModel order = new OrderModel(Collections.singletonList(validIngredientIds.get(0)));
         var response = orderClient.createOrderWithoutAuth(order);
@@ -79,6 +80,7 @@ public class CreateOrderTest {
 
     @Test
     @DisplayName("Создание заказа с авторизацией, но без ингредиентов")
+    @Description("Негативный сценарий: пустой список ингредиентов -> 400 Bad Request")
     public void createOrderWithAuthAndNoIngredientsTest() {
         OrderModel order = new OrderModel(Collections.emptyList());
         var response = orderClient.createOrderWithAuth(order, accessToken);
@@ -90,6 +92,7 @@ public class CreateOrderTest {
 
     @Test
     @DisplayName("Создание заказа с неверным хешем ингредиента")
+    @Description("Негативный сценарий: невалидный ID ингредиента -> 500 Internal Server Error")
     public void createOrderWithInvalidIngredientHashTest() {
         OrderModel order = new OrderModel(Collections.singletonList("invalid_hash_123"));
         var response = orderClient.createOrderWithAuth(order, accessToken);

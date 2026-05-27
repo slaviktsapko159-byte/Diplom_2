@@ -1,8 +1,8 @@
 package tests;
 
 import clients.UserClient;
-import models.UserModel;
 import generators.UserGenerator;
+import models.UserModel;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
@@ -37,6 +37,7 @@ public class LoginUserTest {
 
     @Test
     @DisplayName("Вход под существующим пользователем")
+    @Description("Авторизация с валидными email и паролем")
     public void loginWithValidUserTest() {
         var response = userClient.loginUser(user);
         response.then()
@@ -49,6 +50,7 @@ public class LoginUserTest {
 
     @Test
     @DisplayName("Вход с неверным email")
+    @Description("Негативный сценарий: неверный логин")
     public void loginWithWrongEmailTest() {
         UserModel wrongUser = new UserModel("wrong@test.ru", user.getPassword(), null);
         var response = userClient.loginUser(wrongUser);
@@ -60,6 +62,7 @@ public class LoginUserTest {
 
     @Test
     @DisplayName("Вход с неверным паролем")
+    @Description("Негативный сценарий: неверный пароль")
     public void loginWithWrongPasswordTest() {
         UserModel wrongUser = new UserModel(user.getEmail(), "wrongPass", null);
         var response = userClient.loginUser(wrongUser);
@@ -70,6 +73,7 @@ public class LoginUserTest {
 
     @Test
     @DisplayName("Вход с пустыми полями")
+    @Description("Негативный сценарий: пустые email и пароль")
     public void loginWithEmptyFieldsTest() {
         UserModel emptyUser = new UserModel("", "", null);
         var response = userClient.loginUser(emptyUser);

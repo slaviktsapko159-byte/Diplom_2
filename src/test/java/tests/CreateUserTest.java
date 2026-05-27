@@ -1,8 +1,8 @@
 package tests;
 
 import clients.UserClient;
-import models.UserModel;
 import generators.UserGenerator;
+import models.UserModel;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
@@ -35,7 +35,7 @@ public class CreateUserTest {
 
     @Test
     @DisplayName("Создание уникального пользователя")
-    @Description("Позитивный сценарий: регистрация с новыми данными")
+    @Description("Позитивный сценарий: регистрация с новыми email, password, name")
     public void createUniqueUserTest() {
         user = UserGenerator.getRandomUser();
         var response = userClient.createUser(user);
@@ -49,7 +49,7 @@ public class CreateUserTest {
 
     @Test
     @DisplayName("Создание уже существующего пользователя")
-    @Description("Негативный сценарий: повторная регистрация")
+    @Description("Негативный сценарий: повторная регистрация с теми же данными")
     public void createExistingUserTest() {
         user = UserGenerator.getRandomUser();
         userClient.createUser(user).then().statusCode(SC_OK);
@@ -62,6 +62,7 @@ public class CreateUserTest {
 
     @Test
     @DisplayName("Создание пользователя без пароля")
+    @Description("Негативный сценарий: отсутствует обязательное поле password")
     public void createUserWithoutPasswordTest() {
         user = UserGenerator.getRandomUser();
         user.setPassword(null);
@@ -74,6 +75,7 @@ public class CreateUserTest {
 
     @Test
     @DisplayName("Создание пользователя без имени")
+    @Description("Негативный сценарий: отсутствует поле name")
     public void createUserWithoutNameTest() {
         user = UserGenerator.getRandomUser();
         user.setName(null);
@@ -85,6 +87,7 @@ public class CreateUserTest {
 
     @Test
     @DisplayName("Создание пользователя без email")
+    @Description("Негативный сценарий: отсутствует поле email")
     public void createUserWithoutEmailTest() {
         user = UserGenerator.getRandomUser();
         user.setEmail(null);

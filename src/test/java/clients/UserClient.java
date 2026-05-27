@@ -3,7 +3,6 @@ package clients;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import models.UserModel;
-
 import static io.restassured.RestAssured.given;
 
 public class UserClient {
