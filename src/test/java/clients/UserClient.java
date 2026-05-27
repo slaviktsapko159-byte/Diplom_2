@@ -1,8 +1,9 @@
-package api.clients;
+package ru.yandex.praktikum.api.clients;
 
-import api.models.UserModel;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import ru.yandex.praktikum.api.models.UserModel;
+
 import static io.restassured.RestAssured.given;
 
 public class UserClient {
@@ -11,7 +12,7 @@ public class UserClient {
     private static final String LOGIN_PATH = "/api/auth/login";
     private static final String USER_PATH = "/api/auth/user";
 
-    @Step("Создание пользователя")
+    @Step("Создание пользователя через API")
     public Response createUser(UserModel user) {
         return given()
                 .baseUri(BASE_URL)
@@ -20,7 +21,7 @@ public class UserClient {
                 .post(REGISTER_PATH);
     }
 
-    @Step("Логин пользователя")
+    @Step("Логин пользователя через API")
     public Response loginUser(UserModel user) {
         return given()
                 .baseUri(BASE_URL)
@@ -29,7 +30,7 @@ public class UserClient {
                 .post(LOGIN_PATH);
     }
 
-    @Step("Удаление пользователя")
+    @Step("Удаление пользователя через API")
     public Response deleteUser(String accessToken) {
         return given()
                 .baseUri(BASE_URL)

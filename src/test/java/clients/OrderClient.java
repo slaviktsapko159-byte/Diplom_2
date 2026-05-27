@@ -1,8 +1,9 @@
-package api.clients;
+package ru.yandex.praktikum.api.clients;
 
-import api.models.OrderModel;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import ru.yandex.praktikum.api.models.OrderModel;
+
 import static io.restassured.RestAssured.given;
 
 public class OrderClient {
