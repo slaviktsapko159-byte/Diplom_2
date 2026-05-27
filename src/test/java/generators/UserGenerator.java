@@ -1,6 +1,6 @@
-package ru.yandex.praktikum.api.generators;
+package generators;
 
-import ru.yandex.praktikum.api.models.UserModel;
+import models.UserModel;
 import java.util.Random;
 
 public class UserGenerator {
@@ -10,7 +10,7 @@ public class UserGenerator {
         long unique = System.currentTimeMillis() + random.nextInt(10000);
         String email = "user_" + unique + "@test.ru";
         String password = "123456";
-        String name = "Name" + random.nextInt(10000);
+        String name = "Name" + unique;
         return new UserModel(email, password, name);
     }
 }

@@ -1,14 +1,16 @@
-package ru.yandex.praktikum.api.models;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+package models;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class OrderModel {
     private List<String> ingredients;
+
+    public OrderModel() {}
+
+    public OrderModel(List<String> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public List<String> getIngredients() { return ingredients; }
+    public void setIngredients(List<String> ingredients) { this.ingredients = ingredients; }
 }

@@ -1,8 +1,8 @@
-package ru.yandex.praktikum.api.clients;
+package clients;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import ru.yandex.praktikum.api.models.UserModel;
+import models.UserModel;
 
 import static io.restassured.RestAssured.given;
 
